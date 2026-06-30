@@ -5,7 +5,16 @@ description: Use when the user asks to write a daily standup report or daily wor
 
 # Daily Report Generator
 
-Generate a Chinese daily standup report (`早会日报`) using a fixed Markdown template.
+Generate a Chinese standup report (`早会日报`) using a fixed Markdown template.
+
+## Quick Start
+
+用户触发 `/daily-report-generator` 后：
+1. 确认报告日期（默认今天）。
+2. 收集昨日完成、今日计划、阻塞与风险等信息。
+3. 使用 [TEMPLATE.md](TEMPLATE.md) 生成报告。
+4. 将报告保存到用户配置的目录（默认当前工作目录）。
+5. 如用户要求，调用 `lark-cli` 发布到飞书文档。
 
 ## When to Use
 
@@ -38,15 +47,15 @@ The template uses two date formats by design:
 4. **Infer plans from context**: If the user does not provide today's plans, infer them from meeting notes, todo items, git log, or previous day's 今日计划.
 5. **Risks realistic**: List 1-3 actual risks or dependencies based on the work described. Do not invent risks unrelated to the tasks.
 6. **Keep Chinese**: Output the report in Chinese unless the user explicitly requests English.
-7. **Save to file**: Write the report to `/Users/nongqingyang/workspace/archersmart/aps/docs/日报/早会日报-YYYY-MM-DD.md`.
+7. **Save to file**: Write the report to `${DAILY_REPORT_DIR:-.}/早会日报-${REPORT_DATE}.md`, where `REPORT_DATE` is the report date in `YYYY-MM-DD` form. Set `DAILY_REPORT_DIR` to the desired output directory; if unset, the file is written to the current working directory.
 8. **Publish option**: If the user asks to publish, run:
    ```bash
-   cd /Users/nongqingyang/workspace/archersmart/aps/docs/日报 && \
+   cd "${DAILY_REPORT_DIR:-.}" && \
    lark-cli docs +create \
      --api-version v2 \
      --as user \
      --doc-format markdown \
-     --content "@./早会日报-YYYY-MM-DD.md" \
+     --content "@./早会日报-${REPORT_DATE}.md" \
      --json
    ```
 
