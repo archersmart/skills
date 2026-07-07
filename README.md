@@ -31,6 +31,7 @@ Inspired by [anthropics/skills](https://github.com/anthropics/skills).
 - **Algorithmic Art**: Create art with code.
 - **Brand Guidelines**: Enforce brand consistency.
 - **Claude API**: Interact with Claude API.
+- **Continue Session**: Resume work from a prior session by extracting its transcript into a handoff brief.
 - **Doc Co-authoring**: Assist in document writing.
 - **Document Skills**: DOCX, PDF, PPTX, XLSX processing.
 - **Frontend Design**: Design UI components.
