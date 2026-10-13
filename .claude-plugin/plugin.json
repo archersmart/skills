@@ -1,0 +1,18 @@
+{
+  "name": "archer-skills",
+  "version": "0.1.0",
+  "description": "ArcherSmart's agent skills. Plug-and-play, not vibe coding.",
+  "author": {
+    "name": "ArcherSmart",
+    "url": "https://www.archersmart.ai"
+  },
+  "repository": "https://github.com/archersmart/skills",
+  "keywords": [
+    "engineering",
+    "skills",
+    "productivity"
+  ],
+  "skills": [
+    "./skills/productivity/daily-report-generator"
+  ]
+}

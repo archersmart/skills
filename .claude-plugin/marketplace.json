@@ -1,0 +1,21 @@
+{
+  "name": "archersmart",
+  "owner": {
+    "name": "ArcherSmart",
+    "url": "https://www.archersmart.ai"
+  },
+  "description": "ArcherSmart's skills, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "archer-skills",
+      "source": "./",
+      "description": "ArcherSmart's agent skills.",
+      "category": "productivity",
+      "keywords": [
+        "engineering",
+        "skills",
+        "productivity"
+      ]
+    }
+  ]
+}

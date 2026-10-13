@@ -1,54 +1,72 @@
 # Archer Skills
 
-A collection of skills designed to enhance Archer's capabilities in development, documentation, and project management.
-Inspired by [anthropics/skills](https://github.com/anthropics/skills).
+Agent skills tailored for Archer. Skills are small, easy to adapt, and composable. They work with any model.
 
-## Structure
+## Installation
 
-- `skills/`: The main directory containing categorized skills.
-  - `development/`: Coding and debugging skills.
-  - `documentation/`: Documentation generation and management.
-  - `project-management/`: Task tracking and workflow management.
-  - `archer/`: Specific skills tailored for Archer.
-  - `*`: Other utility skills (PDF, Docx, etc.) are available at the root of `skills/`.
-- `template/`: A template for creating new skills.
+A plugin updates itself. [skills.sh](https://skills.sh/archersmart/skills) copies editable files into your project, and you update them by hand. Pick one per agent, because installing both gives you every skill twice. The canonical wording lives in [.agents/install-block.md](./.agents/install-block.md).
 
-## Available Skills
+### Claude Code
 
-### Development
-- **Code Reviewer**: Reviews code for best practices, bugs, and security vulnerabilities.
+```bash
+claude plugin marketplace add archersmart/skills
+claude plugin install archer-skills@archersmart
+```
 
-### Documentation
-- **Tech Writer**: Generates high-quality technical documentation.
+Updates itself when a release merges.
 
-### Project Management
-- **Task Tracker**: Manages project tasks and todo lists.
+### Codex
 
-### Archer Specific
-- **Smart Coder**: Specialized coding skill for high-performance and idiomatic code.
+```bash
+codex plugin marketplace add archersmart/skills
+codex plugin add archer-skills@archersmart
+```
 
-### Utility & Other Skills
-- **Algorithmic Art**: Create art with code.
-- **Brand Guidelines**: Enforce brand consistency.
-- **Claude API**: Interact with Claude API.
-- **Doc Co-authoring**: Assist in document writing.
-- **Document Skills**: DOCX, PDF, PPTX, XLSX processing.
-- **Frontend Design**: Design UI components.
-- **Internal Comms**: Draft internal communications.
-- **MCP Builder**: Build Model Context Protocol servers.
-- **Skill Creator**: Tools for creating new skills.
-- **Slack GIF Creator**: Create GIFs for Slack.
-- **Theme Factory**: Generate color themes.
-- **Web Artifacts Builder**: Build web artifacts.
-- **Webapp Testing**: Test web applications.
+Updates itself at startup.
 
-## How to Use
+### GitHub Copilot (CLI and VS Code)
 
-These skills are designed to be loaded by Archer. Each skill folder contains a `SKILL.md` file with instructions.
+```bash
+copilot plugin marketplace add archersmart/skills
+copilot plugin install archer-skills@archersmart
+```
 
-## Creating a New Skill
+Then, once, add to `~/.copilot/settings.json`:
 
-1. Copy the `template` directory to a new location under `skills/`.
-2. Rename the directory to your skill name.
-3. Edit `SKILL.md` to define your skill's behavior.
-4. Add your skill to this README.
+```json
+{
+  "extraKnownMarketplaces": {
+    "archersmart": { "source": { "source": "github", "repo": "archersmart/skills" }, "autoUpdate": true }
+  }
+}
+```
+
+### Every other agent (skills.sh)
+
+```bash
+npx skills@latest add archersmart/skills -a <agent>  # cursor, opencode, windsurf, amp; omit -a to choose
+```
+
+Manual updates: run `npx skills@latest update`, and re-run `add` to pick up new skills.
+
+## The skills
+
+Skills live in bucket folders under `skills/`. Only `engineering/` and `productivity/` are promoted: they ship in the plugin and get docs pages under `docs/`.
+
+### Productivity
+
+#### Model-invoked
+
+- **[daily-report-generator](./skills/productivity/daily-report-generator/SKILL.md)**: Generate a Chinese standup report (早会日报) from completed tasks, git log, meeting notes, or todo items, using a fixed Markdown template, with optional publishing to Feishu.
+
+### Buckets
+
+- [engineering](./skills/engineering/README.md): daily code work
+- [productivity](./skills/productivity/README.md): daily non-code workflow tools
+- [in-progress](./skills/in-progress/README.md): beta, feedback wanted
+- [misc](./skills/misc/README.md): kept around, rarely used
+- [deprecated](./skills/deprecated/README.md): no longer used
+
+## Developing this repo
+
+The conventions (bucket rules, plugin manifest sync, docs pages, invocation modes, releases) live in [CLAUDE.md](./CLAUDE.md). Run `scripts/link-skills.sh` to symlink the skills into your local harnesses for daily use.

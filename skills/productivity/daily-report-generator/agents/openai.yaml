@@ -1,0 +1,3 @@
+interface:
+  display_name: "Daily Report Generator"
+  short_description: "Generate a Chinese standup report (早会日报)"
